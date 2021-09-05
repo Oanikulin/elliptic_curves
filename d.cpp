@@ -521,7 +521,6 @@ struct Remainder{
     }
 
     Remainder operator / (Remainder other) {
-        //cout << "division " << p << " "<< val << " " << other.val << " " << rem_pow(other, p - 2).val << endl;
         return (*this) * rem_pow(other, p - 2);
     }
 
@@ -598,22 +597,15 @@ vector<unsigned long long> uns_parse_string(string &s) {
 
 template<typename T>
 T gcd (T a, T b, T & x, T & y, unsigned long long mod) {
-   // cout << "pre a b "<< endl << a << endl << b << endl;
 	if (a.Degree() < 0) {
 		x = T(Remainder(0, mod)); y = T(Remainder(1, mod) / Remainder(b.polynom[0].val, mod));
-		if (b.Degree() != 0) {
-            exit(3);
-		}
 		return b;
 	}
 	T x1, y1;
-	//	cout <<"a b x y " << endl << a << endl << b << endl << x << endl << y << endl;
-   // cout << "b / a, b % a" << endl << (b/a) << endl << (b % a) << endl;
 	T d = gcd (b%a, a, x1, y1, mod);
 	//cout << "D" << endl << d << endl;
 	x = y1 - (b / a) * x1;
 	y = x1;
-	//cout << "a b x1 y1 x y" << endl << a << endl << b << endl << x1 << endl << y1 << endl<< x << endl << y << endl;
 	return d;
 }
 
@@ -621,8 +613,6 @@ template <typename T>
 T invert(T a, T p, unsigned long long mod) {
     T y;
     T x;
-    gcd(a, p, x, y, mod);
-    //cout << "inverted "<< endl << x << endl;
     return x;
 }
 
@@ -643,11 +633,7 @@ T pow(T val, T2 deg, T md) {
 template<typename T>
 T decrypt(T a, T b, T p, unsigned long long k, unsigned long long mod) {
     T tmp = pow(b, k, p) % p;
-    //cout << "b k p " << endl  <<b  << endl << k << endl << p << endl;
-    //cout << "power " << tmp << endl;
     T inv = invert(tmp, p, mod);
-    if ((inv * tmp) % p != T(Remainder(1)))
-        exit(3);
     return (a * inv) % p;
 }
 
@@ -678,8 +664,6 @@ int main() {
     getline(cin, s);
     vector<unsigned long long> ttmp = uns_parse_string(s);
     unsigned long long k = ttmp[0];
-    if (ttmp.size() != 1)
-        return 3;
     bigint ans;
     vector<long long> digs;
     while (getline(cin, s)) {
@@ -688,11 +672,6 @@ int main() {
         sec = parse_string(s, p);
         Polynomial<Remainder> a(sec), b(fr);
         auto tmp = decrypt(a, b, f, k, p);
-        if ((a * invert(a, f, p) % f != Polynomial<Remainder>(Remainder(1))) ||
-            (b * invert(b, f, p) % f != Polynomial<Remainder>(Remainder(1))))
-                return 3;
-        if (tmp.polynom.size() > f.Degree() || tmp.polynom.size() == 0)
-            return 3;
         for (int i = 0; i + 1 < mpw; ++i) {
             digs.push_back(tmp[i].val);
         }
