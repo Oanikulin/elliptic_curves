@@ -485,12 +485,6 @@ char number_to_char(int num) {
     assert(true);
 }
 
-/*template<typename T>
-void encrypt(T num, T p, T g, T k) {
-    unsigned int b = 1;
-    ans.push_back({num * 1ULL * pow(Remainder(k, p), b).val % p , pow(Remainder(g, p), b).val});
-}*/
-
 template <typename T>
 T invert(T a, unsigned int mod) {
     return pow(a, mod - 2);
