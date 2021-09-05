@@ -618,10 +618,7 @@ BigInt my_pow(BigInt val, BigInt deg) {
 
 BigInt get_sqrt(BigInt aa) {
     BigInt deg = (p + 1) / 4;
-    //cout << deg << endl << aa << endl;
     BigInt sqrr =  my_pow(aa, deg);
-    //cout << sqrr << endl << (sqrr * sqrr) % p << endl << aa << endl << p - aa << endl;
-    // cout << p - sqrr << endl << ((p - sqrr) * (p - sqrr)) % p << endl << aa << endl << p - aa << endl;
     if ((sqrr * sqrr) % p != aa)
         assert(false);
     return sqrr;
@@ -713,10 +710,6 @@ PointCurve multiplier(PointCurve cur, BigInt deg) {
 void encode(PointCurve key, PointCurve gen, PointCurve m) {
     BigInt k(rand() % 10);
     my_cout(multiplier(gen, k));
-    //cout << "gen outed" << endl;
-    assert(check(key));
-    assert(check(m));
-    //cout << key.x << " " << key.y << endl << m.x << " " << m.y << endl;
     my_cout(multiplier(key, k) + m);
 }
 
