@@ -627,7 +627,6 @@ int main() {
     getline(cin, s);
     vector<Remainder> thr = parse_string(s, p);
     Polynomial<Remainder> f(fr), g(sec), k(thr);
-    //cout <<"f, g, f / g, f % g" << endl << f << endl << g << endl << f / g << endl << f % g << endl <<  " kek" << endl;
     getline(cin, s);
     reverse(s.begin(), s.end());
     bigint a;
