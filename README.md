@@ -1,2 +1,2 @@
 # elliptic_curves
-Implementation of El-Gamal encoding/decoding using different methods
+Implementation of El-Gamal encoding/decoding using different methods for minicourse 
