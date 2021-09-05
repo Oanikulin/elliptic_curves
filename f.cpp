@@ -2155,7 +2155,6 @@ PointCurveZ operator + (PointCurveZ aa, PointCurveZ bb) {
 PointCurveZ my_pow(PointCurveZ val, intx::uint512 deg) {
     PointCurveZ res = PointCurveZ(val.x, val.y, val.z, 1);
     while (deg != 0) {
-       // cout << intx::to_string(deg) << endl << intx::to_string(res.x) << endl << intx::to_string(res.y) << endl << intx::to_string(res.z) << endl;
         if ((deg % 2) == 1) {
             res = res + val;
         }
@@ -2170,9 +2169,6 @@ PointCurveZ Negate(PointCurveZ cur) {
         return cur;
     if (cur.y == 0)
         return cur;
-    //BigInt invv = invert(cur.z, p);
-    //cur.x = (cur.x * invv) % p;
-    //cur.y = (cur.y * invv) % p;
     return PointCurveZ(cur.x, p - cur.y, cur.z);
 }
 
@@ -2206,12 +2202,8 @@ int main() {
             mes = PointCurveZ(intx::from_string<intx::uint512>(s), intx::from_string<intx::uint512>(t), 1);
         }
         PointCurveZ tmp = my_pow(gen, key);
-        //cout << intx::to_string(tmp.x) << endl << intx::to_string(tmp.y) << endl;
-        //return 0;
         tmp = Negate(tmp);
-        //cout << tmp.x << endl << tmp.y << endl;
         PointCurveZ pm = mes + tmp;
-        //cout << check(tmp) << endl << check(Negate(tmp)) << endl << check(pm) << endl;
         intx::uint512 ans = (pm.x * my_pow(pm.z, p - 2)) % p;
         while (ans != 0) {
             cout << number_to_char(ans % 64);
